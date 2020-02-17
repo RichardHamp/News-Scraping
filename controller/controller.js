@@ -2,22 +2,40 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 
-var request = require("request");
-var cheerio = require("cheerio");
-
+//Requiring Comment and Article models
 var Comment = require("../models/Comment.js");
 var Article = require("../models/Article.js");
 
+//Scraping Library
+var request = require("request");
+var cheerio = require("cheerio");
+
+//html routes
 router.get("/", function(req, res) {
-  res.redirect("/articles");
+  Article.find({})
+  .populate("comments")
+  // now, execute our query
+  .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+      console.log("all article with comments: "+ doc);
+      res.render("index",{articles: doc});
+    }
+  })
 });
 
+
+//api routes
 router.get("/scrape", function(req, res) {
   request("https://www.dailycamera.com/", function(error, response, html) {
     var $ = cheerio.load(html);
     var titlesArray = [];
-
-    $(".entry-title").each(function(i, element) {
+  console.log("scraping");
+    $("h6").each(function(i, element) {
       var result = {};
 
       result.title = $(this)
@@ -50,10 +68,13 @@ router.get("/scrape", function(req, res) {
       } else {
         console.log("Not saved to DB, missing data");
       }
+      
     });
+    console.log("******************TITLES***********"+titlesArray)
     res.redirect("/");
   });
 });
+
 router.get("/articles", function(req, res) {
   Article.find()
     .sort({ _id: -1 })
@@ -85,7 +106,7 @@ router.get("/clearAll", function(req, res) {
       console.log("removed all articles");
     }
   });
-  res.redirect("/articles-json");
+  res.redirect("/");
 });
 
 router.get("/readArticle/:id", function(req, res) {
