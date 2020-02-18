@@ -1,39 +1,61 @@
 body {
     background-size: 600px;
-    font-family: "Oswald", sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 16px;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-image: url("../images/newspaper.jpg");
+ 
   }
+
   main {
     flex: 1 0 auto;
   }
+
   .articleBody {
     height: 200px;
     font-size: 20px;
     overflow-y: scroll;
     line-height: 150%;
   }
+  
   #btnSignUp {
     background-color: #635f60;
   }
+
   #nameComment {
-    /*border-bottom: 2px solid #ec407a;*/
     font-weight: bold;
     background: #635f60;
     color: white;
   }
+
   .input-field input[type="text"]:focus + label {
     color: #635f60;
   }
+
   .input-field input[type="text"]:focus {
     border-bottom: 1px solid #635f60;
     box-shadow: 0 1px 0 0 #000;
   }
+
   .input-field .prefix.active {
     color: #635f60;
   }
+
   .topnav {
-    background-color: #635f60;
+    background-image: linear-gradient(to bottom right, rgb(54, 52, 46) , rgb(182, 136, 92));
+    text-shadow: 2px 2px #000000;
+  }
+
+  .footer-copyright {
+    text-shadow: none;
+  }
+
+  .headline {
+    border: solid;
+    border-width: 2px;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    background:rgb(190, 152, 116);
   }
