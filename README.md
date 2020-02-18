@@ -23,3 +23,5 @@ These instructions will get you a copy of the project up and running on your loc
 4. Use browser to navigate to **http://localhost:3000**
 
 ## Screenshots
+
+<img src="public/assets/images/News-Scraper.png">
