@@ -1,22 +1,22 @@
-//dependencies
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var logger = require("morgan");
+//required variables/constants
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+// const logger = require("morgan");
+const express = require("express");
+const app = express();
+const exphbs = require("express-handlebars");
+const routes = require("./controller/controller.js");
+const port = process.env.PORT || 3000;
 
-//initialize Express app
-var express = require("express");
-var app = express();
+// app.use(logger("dev"));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
-app.use(logger("dev"));
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-
+//make public a static dir
 app.use(express.static(process.cwd() + "/public"));
-//Require set up handlebars
-var exphbs = require("express-handlebars");
+
+//Initialize Handlebars
 app.engine(
   "handlebars",
   exphbs({
@@ -26,21 +26,19 @@ app.engine(
 app.set("view engine", "handlebars");
 
 //connecting to MongoDB
-//mongoose.connect("mongodb://localhost/scraped_news");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/scraper_news";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
+db.once("open", function () {
   console.log("Connected to Mongoose!");
 });
 
-var routes = require("./controller/controller.js");
+//Routing
 app.use("/", routes);
-//Create localhost port
-var port = process.env.PORT || 3000;
-app.listen(port, function() {
+
+//Listening
+app.listen(port, function () {
   console.log("Listening on PORT " + port);
 });

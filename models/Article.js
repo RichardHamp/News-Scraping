@@ -1,8 +1,9 @@
+//required variables/constants
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var mongoose = require("mongoose");
-
-var Schema = mongoose.Schema;
-var ArticleSchema = new Schema({
+//creating article schema
+const ArticleSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -18,5 +19,7 @@ var ArticleSchema = new Schema({
     }
   ]
 });
-var Article = mongoose.model("Article", ArticleSchema);
+//creating Article model with ArticleSchema
+const Article = mongoose.model("Article", ArticleSchema);
+
 module.exports = Article;

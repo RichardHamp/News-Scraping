@@ -1,8 +1,10 @@
-var mongoose = require("mongoose");
+//required variables/constants
+const mongoose = require("mongoose");
+//create schema class
+const Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
-
-var CommentSchema = new Schema({
+//create comment schema
+const CommentSchema = new Schema({
   name: {
     type: String
   },
@@ -11,5 +13,8 @@ var CommentSchema = new Schema({
     required: true
   }
 });
-var Comment = mongoose.model("Comment", CommentSchema);
+
+//create Comment model with CommentSchema
+const Comment = mongoose.model("Comment", CommentSchema);
+
 module.exports = Comment;
