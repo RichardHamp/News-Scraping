@@ -99,11 +99,12 @@ router.get("/readArticle/:id", function (req, res) {
       } else {
         hbsObj.article = doc;
         const link = doc.link;
+        console.log("Link (controller 102): " + link);
         request(link, function (error, response, html) {
           const $ = cheerio.load(html);
-
-          $(".article-title").each(function (i, element) {
+          $(".article-body").each(function (i, element) {
             hbsObj.body = $(this).children(".body-copy").children("p").text();
+            console.log("Body (controller 107): " + hbsObj.body)
             res.render("article", hbsObj);
             return false;
           });
