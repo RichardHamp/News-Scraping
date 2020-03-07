@@ -8,7 +8,7 @@ const routes = require("./controller/controller.js");
 const port = process.env.PORT || 3000;
 
 //make public a static dir
-app.use(express.static(process.cwd() + "/public"));
+app.use(express.static("public"));
 
 //Initialize Handlebars
 app.engine(
